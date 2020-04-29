@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./funny.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:wght@200;300;400;600;800&display=swap"
+        rel="stylesheet">
+    <title>Todo List</title>
+</head>
+<body>
+    <!-- Navigation-->
+    <span class= "nav__container">
+        <p class="btn__disp-style">Display Style : funny/buissness</p>
+        <p class="logo"> Todo List</p>
+        <a class="btn__add" href="./add.html" >Add +</a>
+    </span>
+    <!-- Sorting options-->
+    <span class="sorting_options__contaier">
+        <form >
+            <input class="btn__sorting" type="button" value="Done"></input>
+            <input class="btn__sorting" type="button" value="Todo"></input>
+            <input class="btn__sorting" type="button" value="All"></input>
+         </form>
+        
+        <form class="sorting_options__radio">
+            <p class="sorting_options__p">Sort By:</p>
+            <label>finish date
+            <input type="radio" value="finished"></input>
+            </label>
+            <label>create date
+            <input type="radio" value="created"></input>
+            </label>
+            <label>importance
+            <input type="radio" value="importance"></input>
+            </label>
+                
+        </form>
+    </span>
+    <!-- TODO List-->
+    <ul class="list__container">
+
+        <li class="table__content">
+            <p class="done" >Done:</p>
+            <p class="finish">Finished until:</p>
+            <p class="title">Title:</p>
+            <p class="importance">Importance:</p>
+            <p class="created">Created:</p>        
+            
+        </li>
+
+        <li>
+            <p class="done">O</p>
+            <p class="finish">27.08.2020</p>
+            <h1 class="title">Feed the cat</h1>  
+            <p class="importance">****</p>
+            <p class="created">30.09.2020</p>
+            <p class="description">Tekst describing the task.</p>
+            <a class="edit">edit...</a>
+        </li>
+        <li>
+            <p class="done">O</p>
+            <p class="finish">20.08.2020</p>
+            <h1 class="title">clean the house</h1>                       
+            <p class="importance">****</p>
+            <p class="created">27.08.2020</p>
+            <p class="description">First the windows, then try to find the valum claener...</p>
+            <a class="edit">edit...</a>
+        </li>
+    </ul>  
+</body>
+<footer>
+
+</footer>
+</html>

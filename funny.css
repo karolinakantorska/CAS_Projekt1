@@ -1,120 +1,143 @@
-body {
-    max-width: 800px;
-    margin: auto;
 
-    font-family: 'Montserrat', sans-serif;
+:root {
+  --small-text: 0.9em;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
     font-weight: 300;
+    max-width: 1000px;
+    margin: auto;
+}
+.container {
+    display: flex;
+    flex-wrap: wrap;
 }
 /*Navigation*/
 .nav__container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 30px 100px;
-    grid-template-areas: 
-        "disp_opt   ."
-        "logo       btn__add ";
-    align-items: center;
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }
-.btn__disp-style {
-    grid-area: disp_opt;
+.disp-style, .loggIn {
+    flex-basis: 50%;
+    font-size: var(--small-text);
+}
+.disp-style{
+    text-align: right;
 }
 .logo {
-    grid-area: logo;
-    font-family: 'Bangers', cursive;
-    font-size: 3.2rem;
+    flex-basis: 100%;
+    font-family: 'Cabin Sketch', cursive;
+    font-size: 4.2em;
+    color: rgb(87, 85, 85);
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    background:
+        linear-gradient(to left, rgba(255,255,255,0.5),rgba(255,255,255,0.9), rgba(255,0255,255,0.5)),
+        repeat-x  center/40% url("./06.jpg");
+    margin: 0px auto 0px auto;
 }
-.btn__add {
-    grid-area: btn__add;
-    background-color: crimson;
-    width: 100px;
-    height:40px;
-    border: 1px solid rgb(24, 23, 23);
-    border-radius: 25px;
-    justify-self: right;
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    margin-right: ;
-    font-size: 1.3rem;
-    font-weight: 800;
-    font-variant: small-caps;
-    text-decoration: none;
-    color: blanchedalmond;
-    
+.link__add{
+    display: none;
 }
 /*Sorting options*/
-.sorting_options__contaier {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 30px 30px;
-    align-items: center;
+.sorting_options__contaier{
+    flex-basis: 100%;
 }
-    
-.sorting_options__contaier > form {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    align-items: center;
+.sorting_options__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 100%;
 }
-.btn__sorting {
-    border-radius: 15px;
-    font-size: 1.2rem;
-    font-weight: 800;
-    font-variant: small-caps;
-    width: 8em;
-    margin: auto;
+.btn__sorting, .btn__add{
+    flex-basis: 24.9%;
+    font-size: 1.1em;
+}
+.sorting_options__radio {
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+    align-items: baseline;
+}
+.sorting_options__p {
+    flex-basis: 15%;
+}
+.sorting_options__radio label {
+    flex-basis: 20%;
 }
 /*TODO List*/
-.list__container {
-    display: grid;
+.list__container{
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     padding: 0;
-    grid-template-columns: 1fr;
-    grid-template-rows: 30px;
+    list-style-type: none;
 }
-
-li:first-child {
-    color: black;
-    font-weight: 600;
-    grid-template-columns: 2fr 4fr 6fr 3fr 3fr 2fr;
-    grid-template-areas: 
-        "done  finish  title  importance   created   .";
+.table__content{
+    display: none;
 }
-
 li {
-    
-    display: grid;
-    grid-template-columns: 2fr 4fr 6fr 3fr 3fr 2fr;
-    grid-template-rows: 45px 1fr;
-    grid-template-areas: 
-        "done       finish    title     importance  created   edit "
-        "descript   descript  descript  descript    descript  edit";
-    align-items: baseline;
-    padding-bottom: 53px;
-    padding-bottom: 5px;
+    background-color: darkseagreen;
+    margin: 5px;
+    flex: 1 1 32%;
+    min-width: 180px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    border-radius: 10px;
 }
-.done {
-    grid-area: done;
+li:last-child {
+    flex: 1 1 32%;
 }
-.finish {
-    grid-area: finish;
+.title{   
+    font-size: 1.2em;
+    min-height: 2.8em;
+    margin-bottom: .4em;
 }
-.title {
-    grid-area: title;
-}
-.created {
-    grid-area: created;
-}
-.importance {
-    grid-area: importance;
+.importance{
+    flex-basis: 100%;
+    text-align: center;
+    margin: 5px auto 5px auto;
+    font-size: 1.1em;
 }
 .description {
-    grid-area: descript;
+    margin-top: 0;
+}
+li span {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.created,.finish{
+    flex-basis: 100%;
+    font-size: var(--small-text);
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    align-self: flex-end;
+    margin: 5px auto 5px auto;
+}
+.done {
+    flex-basis: 100%;
+    text-align: center;
+    align-self: flex-end;
+    font-size: 1.8em;
+    margin: 5px auto 5px auto;
 }
 .edit {
-    grid-area: edit;
+   font-size: var(--small-text);
+   align-self: flex-end;
+   text-decoration: underline;
 }
-h1.title {
-    font-size: 1.4rem;
-    font-weight: 400;
+/*Footer*/
+footer {
+    max-width: 1200px;
+    margin:auto;
+    font-size: var(--small-text);
 }
 
 

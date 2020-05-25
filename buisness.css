@@ -1,0 +1,218 @@
+body {
+    max-width: 800px;
+    margin: auto;
+
+    font-family: 'Roboto Slab', serif;
+    font-weight: 200;
+}
+p, h1{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+/*Navigation*/
+.nav__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 30px 100px;
+    grid-template-areas: 
+        "logg_in    disp_opt"
+        "logo       btn__add ";
+    align-items: center;
+}
+.disp-style {
+    grid-area: disp_opt;
+    justify-self: right;
+}
+.loggIn {
+    grid-area: logg_in;
+
+}
+.logo {
+    grid-area: logo;
+    font-family: 'Roboto Slab', serif;
+    font-size: 2rem;
+    text-decoration: underline;
+}
+.link__add {
+    grid-area: btn__add;
+    color: red;
+    font-size: 1.4rem;
+    justify-self: right;
+}
+.btn__add {
+    display: none;
+}
+/*Sorting options*/
+.sorting_options__contaier {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 30px 30px;
+    align-items: center;
+}
+.sorting_options__contaier > form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    border-bottom: solid 1px darkslategrey;
+}
+.btn__sorting {
+    border-radius: 15px 15px 2px 2px;
+    border: solid 1px darkslategrey;
+    font-size: 1.2rem;
+    font-weight: 400;
+    width: 8rem;
+    width: 160px;
+    margin-bottom: -1px;
+}
+/*TODO List*/
+.list__container {
+    display: grid;
+    padding: 0;
+    grid-template-columns: 1fr;
+    grid-template-rows: 30px;
+    margin-top: 25px;
+}
+.table__content {
+    align-items: center;
+    grid-template-columns: 2fr 4fr 6fr 3fr 3fr 2fr;
+    grid-template-areas: 
+        "done  finish  title  importance   created   .";
+}
+.table__content .done,
+.table__content .finish,
+.table__content .title,
+.table__content .created,
+.table__content .importance {
+    font-weight: 400;
+    font-size: .8rem;
+    background-color: white;
+}
+li {
+    display: grid;
+    grid-template-columns: 2fr 4fr 6fr 3fr 3fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+        "done       finish    title     importance  created   edit "
+        "descript   descript  descript  descript    descript  descript";
+    align-items: center;
+}
+.done,
+.finish,
+.title,
+.importance,
+.edit,
+.created {
+    background-color: whitesmoke;
+    height: 100%;
+    display: grid;
+    align-items: center;
+}
+.done {
+    grid-area: done;
+    font-size: 1.4rem;
+}
+.finish {
+    grid-area: finish;
+}
+.title {
+    grid-area: title;
+    font-weight: 300;
+}
+.created {
+    grid-area: created;
+}
+.importance {
+    grid-area: importance;
+    font-size: 1.2rem;
+}
+.description {
+    grid-area: descript;
+    background-color: white;
+}
+.edit {
+    grid-area: edit;
+    color: darkblue;
+    text-decoration: underline;
+    font-size: 0.9rem;
+}
+h1.title {
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+/*@ media querry*/
+
+@media only screen and (max-width: 730px) {
+    .table__content {
+        grid-template-columns: 2fr 4fr 6fr 3fr 3fr;
+        grid-template-areas: 
+            "done  finish  title  importance   created";
+    }
+    li {
+        grid-template-columns: 2fr 4fr 6fr 3fr 3fr;
+        grid-template-areas: 
+            "done       finish    title     importance  created"
+            "descript   descript  descript  descript    edit";
+    }
+    .edit {
+        justify-self: right;
+        align-self: flex-end;
+        background-color: white;
+    }
+    .created, .finish {
+        font-size: 0.9rem;
+    }
+}
+@media only screen and (max-width: 580px) {
+    /*Sorting options*/
+    .btn__sorting {
+        width: 100px;
+    }
+    .sorting_options__radio p,
+    .sorting_options__radio label {
+        font-size: .9rem;
+    }
+    /*TODO List*/
+    .table__content{
+        visibility: hidden;
+    }
+    .list__container{
+        justify-items: center;
+        margin-top: 0;
+    }
+    li {
+        width: 100vw;
+        display: grid;
+        justify-items: center;
+        margin-top: 25px;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(4,2rem) 1fr;
+        grid-template-areas: 
+            "title title"
+            "importance importance"
+            "done  finish"
+            "done  created"
+            "descript descript"
+            "edit edit";
+    } 
+    .title,
+    .importance {
+        width: 100vw;
+        text-align: center;
+    }  
+    .done {
+        justify-self: right;
+        padding-right: 10px;
+        background-color: white;
+    }
+    .edit
+     {
+        justify-self: center;
+    }
+    .finish,
+    .created {
+        justify-self: left;
+        padding-left: 10px;
+        background-color: white;
+    }
+}
+

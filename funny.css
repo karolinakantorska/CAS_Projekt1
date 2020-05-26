@@ -25,6 +25,7 @@ body {
 }
 .disp-style{
     text-align: right;
+    text-decoration: underline;
 }
 .logo {
     flex-basis: 100%;
@@ -82,16 +83,17 @@ body {
 li {
     background-color: darkseagreen;
     margin: 5px;
-    flex: 1 1 32%;
+    flex: 1 1 calc(30% - 10px);
     min-width: 180px;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: center;
     border-radius: 10px;
+    padding: 10px;
 }
 li:last-child {
-    flex: 1 1 32%;
+    flex: 1 1 calc(30% - 10px);
 }
 .title{   
     font-size: 1.2em;

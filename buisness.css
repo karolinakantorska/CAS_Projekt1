@@ -22,6 +22,8 @@ p, h1{
 .disp-style {
     grid-area: disp_opt;
     justify-self: right;
+    font-size: 0.95rem;
+    text-decoration: underline;
 }
 .loggIn {
     grid-area: logg_in;

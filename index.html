@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link class="buisness_css" rel="stylesheet" href="buisness.css">
-    <!--<link rel="stylesheet" href="./funny.css">-->
+    <link class="link_css" rel="stylesheet" href="funny.css">
     <link 
         href="https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&display=swap"
         rel="stylesheet">
@@ -12,14 +11,39 @@
     <link
             href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@200;300;400;500"
             rel="stylesheet">
+    <!-- shall it not to be installed?-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"
+        integrity="sha256-qlku5J3WO/ehJpgXYoJWC2px3+bZquKChi4oIWrAKoI=" crossorigin="anonymous"></script>
+    <!-- Template to create todo list-->
+    <script id="entry-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <li>
+            <h1 class="title">{{title}}</h1>
+            <p class="importance">{{{importance}}}</p>
+            <p class="description">{{description}}</p>
+            <!-- TODO entry of date -->
+            <p class="created">30.09.2020</p>
+            <p class="finish">27.08.2020</p>
+            <!-- to interprete bolean -->
+            {{#if done}}
+                <p class="done">&#9745;</p>
+            {{else}}
+                <p class="done">&#9744;</p>
+            {{/if}}
+            <!-- TODO add an event listener -->
+            <a class="edit">edit...</a>
+        </li>
+        {{/each}}
+    </script>
     <title>Todo List</title>
 </head>
 <body>
+    <p class='showingLocalStorage'></p>
     <div class="container">
             <!-- Navigation-->
             <span class="nav__container">
                 <p class="loggIn">Logg in</p>
-                <p class="disp-style">Display Style : funny/buissness</p>
+                <p class="disp-style">Display Style: funny/buissness &#9662</p>
 
                 <p class="logo"> Todo List</p>
                 <a class="link__add" href="./add.html">Add +</a>
@@ -48,7 +72,8 @@
             </span>
             <!-- TODO List-->
             <ul class="list__container">
-            
+                <!-- TODO make it visible in buisness style -->
+                <!-- TODO add description of the dates in css(started/finished) -->
                 <li class="table__content">
                     <p class="done">Done:</p>
                     <p class="finish">Finished until:</p>
@@ -56,7 +81,7 @@
                     <p class="importance">Importance:</p>
                     <p class="created">Created:</p>        
                 </li>
-            
+            <!--
                 <li>
                     <h1 class="title">Feed the cat</h1>
                     <p class="importance">&#9734;&#9734;&#9734;&#9734;&#9734;</p>
@@ -66,34 +91,7 @@
                     <p class="done">&#9745;</p>
                     <a class="edit">edit...</a>
                 </li>
-                <li>
-                    <h1 class="title">Clean the house</h1>
-                    <p class="importance">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
-                    <p class="description">First the windows, then try to find the valum claener...First the windows, then try to find the
-                            valum claener...First the windows, then try to find the valum claener...</p>
-                    <p class="created">27.08.2020</p>
-                    <p class="finish">20.08.2020</p>
-                    <p class="done">&#9745;</p>
-                    <a class="edit">edit...</a>
-                </li>
-                <li>
-                    <h1 class="title">Feed the cat</h1>
-                    <p class="importance">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
-                    <p class="description">Tekst describing the task.</p>
-                    <p class="created">30.09.2020</p>
-                    <p class="finish">27.08.2020</p>
-                    <p class="done">&#9745;</p>
-                    <a class="edit">edit...</a>
-                </li>
-                <li>
-                    <h1 class="title">Clean the house and the garden.</h1>
-                    <p class="importance">&#9733;&#9733;&#9733;&#9734;&#9734;</p>
-                    <p class="description">First the windows, then try to find the valum claener...</p>
-                    <p class="created">27.08.2020</p>
-                    <p class="finish">20.08.2020</p>
-                    <p class="done">&#9744;</p>
-                    <a class="edit">edit...</a>
-                </li>
+            -->
             </ul>
     </div>
 

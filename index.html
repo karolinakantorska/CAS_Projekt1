@@ -22,8 +22,8 @@
             <p class="importance">{{{importance}}}</p>
             <p class="description">{{description}}</p>
             <!-- TODO entry of date -->
-            <p class="created">30.09.2020</p>
-            <p class="finish">27.08.2020</p>
+            <p class="start">{{start}}</p>
+            <p class="finish">{{finish}}</p>
             <!-- to interprete bolean -->
             {{#if done}}
                 <p class="done">&#9745;</p>
@@ -38,61 +38,66 @@
     <title>Todo List</title>
 </head>
 <body>
-    <p class='showingLocalStorage'></p>
     <div class="container">
             <!-- Navigation-->
             <span class="nav__container">
                 <p class="loggIn">Logg in</p>
                 <p class="disp-style">Display Style: funny/buissness &#9662</p>
-
                 <p class="logo"> Todo List</p>
-                <a class="link__add" href="./add.html">Add +</a>
+                <p class="link__add" >Add +</p>
             </span>
             <!-- Sorting options-->
             <span class="sorting_options__contaier">
                 <form class="sorting_options__buttons">
-                    <input class="btn__sorting" type="button" value="Done"></input>
-                    <input class="btn__sorting" type="button" value="Todo"></input>
-                    <input class="btn__sorting" type="button" value="All"></input>
+                    <input class="btn__sorting" id="btn__sorting__done" type="button" value="Done"></input>
+                    <input class="btn__sorting" id="btn__sorting__todo" type="button" value="Todo"></input>
+                    <input class="btn__sorting" id="btn__sorting__all" type="button" value="All"></input>
                     <input class="btn__add" type="button" value="Add +"></input>
                 </form>
             
                 <form class="sorting_options__radio">
                     <p class="sorting_options__p">Sort By:</p>
                     <label>finish date
-                        <input type="radio" value="finished"></input>
+                        <input type="radio" value="finished" name="sort_radio"></input>
                     </label>
                     <label>create date
-                        <input type="radio" value="created"></input>
+                        <input type="radio" value="start" name="sort_radio"></input>
                     </label>
                     <label>importance
-                        <input type="radio" value="importance"></input>
+                        <input type="radio" value="importance" name="sort_radio"></input>
                     </label>
+                    <input class="btn__sort" type="button" value="Sort"></input>
                 </form>
             </span>
             <!-- TODO List-->
-            <ul class="list__container">
+            <!-- ADD TODO Form-->
+            <div class="form__list__container">
+
+            </div>
+            <!--<ul class="list__container">-->
                 <!-- TODO make it visible in buisness style -->
                 <!-- TODO add description of the dates in css(started/finished) -->
+                <!--
                 <li class="table__content">
                     <p class="done">Done:</p>
                     <p class="finish">Finished until:</p>
                     <p class="title">Title:</p>
                     <p class="importance">Importance:</p>
-                    <p class="created">Created:</p>        
+                    <p class="start">Start:</p>        
                 </li>
+                -->
             <!--
                 <li>
                     <h1 class="title">Feed the cat</h1>
                     <p class="importance">&#9734;&#9734;&#9734;&#9734;&#9734;</p>
                     <p class="description">Tekst describing the task.</p>
-                    <p class="created">30.09.2020</p>
+                    <p class="start">30.09.2020</p>
                     <p class="finish">27.08.2020</p>
                     <p class="done">&#9745;</p>
                     <a class="edit">edit...</a>
                 </li>
             -->
-            </ul>
+            <!--</ul>-->
     </div>
 
 </body>

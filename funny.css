@@ -114,7 +114,7 @@ li span {
     flex-wrap: wrap;
     justify-content: center;
 }
-.created,.finish{
+.start,.finish{
     flex-basis: 100%;
     font-size: var(--small-text);
     margin-top: 5px;

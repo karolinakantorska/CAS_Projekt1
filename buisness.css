@@ -78,12 +78,12 @@ p, h1{
     align-items: center;
     grid-template-columns: 2fr 4fr 6fr 3fr 3fr 2fr;
     grid-template-areas: 
-        "done  finish  title  importance   created   .";
+        "done  finish  title  importance   start   .";
 }
 .table__content .done,
 .table__content .finish,
 .table__content .title,
-.table__content .created,
+.table__content .start,
 .table__content .importance {
     font-weight: 400;
     font-size: .8rem;
@@ -94,7 +94,7 @@ li {
     grid-template-columns: 2fr 4fr 6fr 3fr 3fr 2fr;
     grid-template-rows: 1fr 1fr;
     grid-template-areas: 
-        "done       finish    title     importance  created   edit "
+        "done       finish    title     importance  start   edit "
         "descript   descript  descript  descript    descript  descript";
     align-items: center;
 }
@@ -103,7 +103,7 @@ li {
 .title,
 .importance,
 .edit,
-.created {
+.start {
     background-color: whitesmoke;
     height: 100%;
     display: grid;
@@ -120,8 +120,8 @@ li {
     grid-area: title;
     font-weight: 300;
 }
-.created {
-    grid-area: created;
+.start {
+    grid-area: start;
 }
 .importance {
     grid-area: importance;
@@ -147,12 +147,12 @@ h1.title {
     .table__content {
         grid-template-columns: 2fr 4fr 6fr 3fr 3fr;
         grid-template-areas: 
-            "done  finish  title  importance   created";
+            "done  finish  title  importance   start";
     }
     li {
         grid-template-columns: 2fr 4fr 6fr 3fr 3fr;
         grid-template-areas: 
-            "done       finish    title     importance  created"
+            "done       finish    title     importance  start"
             "descript   descript  descript  descript    edit";
     }
     .edit {
@@ -160,7 +160,7 @@ h1.title {
         align-self: flex-end;
         background-color: white;
     }
-    .created, .finish {
+    .start, .finish {
         font-size: 0.9rem;
     }
 }
@@ -192,7 +192,7 @@ h1.title {
             "title title"
             "importance importance"
             "done  finish"
-            "done  created"
+            "done  start"
             "descript descript"
             "edit edit";
     } 
@@ -211,7 +211,7 @@ h1.title {
         justify-self: center;
     }
     .finish,
-    .created {
+    .start {
         justify-self: left;
         padding-left: 10px;
         background-color: white;

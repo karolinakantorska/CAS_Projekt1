@@ -5,43 +5,9 @@ const styleToggler = document.querySelector('.disp-style').addEventListener('cli
         ? cssVariant.href = 'buisness.css' 
         : cssVariant.href = 'funny.css';  
 });
-// TODO delete it when local storage works
-const todoList = [
-    {
-        id: '30.09.2020',
-        title: 'Feed the cat',
-        start: 1983,
-        finish: 2022,
-        done: true,
-        description: 'Tekst describing the task.',
-        //importance: '&#9733;&#9733;&#9733;&#9733;&#9733',
-        importance: 5,
-    },
-    {
-        id: '27.08.2020',
-        title: 'Clean the house',
-        start: 1982,
-        finish: 2021,
-        done: true,
-        description: `First the windows, then try to find the valum claener...First the windows, then try to find the
-                            valum claener...First the windows, then try to find the valum claener...`,
-        //importance: '&#9733;&#9733;&#9734;&#9734;&#9734;',
-        importance: 2,
-    },
-    {
-        id: '28.08.2020',
-        title: 'Repair a bike',
-        start: 1985,
-        finish: 2020,
-        done: false,
-        description: `maybe it would be better ask somebody for a help`,
-        //importance: '&#9733;&#9733;&#9734;&#9734;&#9734;',
-        importance: 1,
-    },
-]
-// local storage
-localStorage.setItem('todoList', JSON.stringify(todoList));
-console.log(JSON.parse(localStorage.getItem('todoList')))
+// creating temporary storage or filling creating temporary storage with data from Local storage
+const todoList = JSON.parse(localStorage.getItem('todoList')) || [];
+console.log(JSON.parse(localStorage.getItem('todoList')));
 
 // reading and compiling List Templates
 // rendering any List
@@ -59,8 +25,9 @@ const renderList = (list) =>{
     document.querySelector('.form__list__container').appendChild(ulTodoList);
 }
 function handleRenderList(){
-    
+
 }
+
 // TODO delete when I know what to do with inline event
 function renderTodoList(){
     // List Templates
@@ -81,35 +48,36 @@ function renderTodoList(){
 const entryForm = `
     <form class='newTask'>
         <input class='btn_task_input_close' type="button" onclick= "renderTodoList()" value="&#9747;">
-        <div>
+        <span>
             <label for="title">Task title: </label>
             <input type="text" name="title" class="inputTitle" required>
-        </div>
-        <div>
+        </span>
+        <span>
             <label for="description">Description: </label>
             <input type="text" name="description" class="inputDescription">
-        </div>
-        <div>
-            <input type="radio" class="inputTodo" checked>
+        </span>
+        <span>
+            <input type="radio" class="inputTodo" name="inputTodo" hecked>
             <label>Todo</label>
-            <input type="radio" class="inputDone">
+            <input type="radio" class="inputDone" name="inputTodo">
             <label>Done</label>
-        </div>
-        <div>
+        </span>
+        <span>
             <label for="start">Start date:</label>
             <input type="date" class="start" name="inputStart">
             <label for="finish">Finish date:</label>
             <input type="date" class="finish" name="inputFinish">
-       </div>
-        <div>
+       </span>
+        <span class="stair_rating">
             <label>Importance:</label>
-            <input type="checkbox" class="inputImportance1">
-            <input type="checkbox" class="inputImportance2">
-            <input type="checkbox" class="inputImportance3">
-            <input type="checkbox" class="inputImportance4">
-            <input type="checkbox" class="inputImportance5">
-        </div>
-        <input class='btn_task_input' type="button" value="Add Task" onclick= "handleFormData()">
+            <span class="rating-star rating-star-full" role="button" value='1'>&#9734;</span>
+            <span class="rating-star rating-star-full" role="button" value='2'>&#9734;</span>
+            <span class="rating-star rating-star-full" role="button" value='3'>&#9734;</span>
+            <span class="rating-star" role="button" value='4'>&#9734;</span>
+            <span class="rating-star" role="button" value='5'>&#9734;</span>
+        </span>
+        <input class='btn_task_input' type="button" value="Add Task" onclick= "addNewTask()">
+        
     </form>
 `
 // event Add+
@@ -169,21 +137,42 @@ function handleSorting() {
     } 
 }
 sortBtn.addEventListener('click', handleSorting);
-// data von form
-const container = document.querySelector('.sorting_options__radio');
 
+function addNewTask() {
+    //e.preventDefault();
+    const formNewTask = document.querySelector('.newTask');
 
-function handleFormData() {
-    console.log(document.querySelector('.newTask'));
-    const formNewTask = document.querySelector('.newTask')
-    // just to see what is comming
-    const newTaskTitle = formNewTask.querySelector('.inputTitle');
-    console.log('newTaskTitle: ' + newTaskTitle.value);
-    const newTaskDescription = formNewTask.querySelector('.inputDescription');
-    console.log('newTaskDescription: ' + newTaskDescription.value);
-    const newTaskStart = formNewTask.querySelector('.start');
-    console.log('newTasktart: ' + newTaskStart.value);
+    const title = formNewTask.querySelector('.inputTitle').value;
+    console.log('title: ' + title);
 
+    const description = formNewTask.querySelector('.inputDescription').value;
+    console.log('description: ' + description);
 
+    //const done = formNewTask.querySelector('.inputDone');
+    const done = formNewTask.querySelector('.inputDone') ? true : false;
+    console.log('done? ' + done);
+
+    const start = formNewTask.querySelector('.start').value;
+    console.log('start: ' + start);
+
+    const finish = formNewTask.querySelector('.finish').value;
+    console.log('finish: ' + finish);
+
+    const importance = formNewTask.querySelectorAll('.rating-star-full').length;
+    console.log('importance: ' + importance);
+
+    const newTask = {
+        title,
+        start,
+        finish,
+        done,
+        description,
+        importance,
+    }
+    todoList.push(newTask);
+    localStorage.setItem('todoList', JSON.stringify(todoList));
+    formNewTask.reset();
 }
+
+
 

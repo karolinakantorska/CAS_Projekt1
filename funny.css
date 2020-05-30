@@ -141,6 +141,15 @@ footer {
     margin:auto;
     font-size: var(--small-text);
 }
+/*Formular Add+ */
+.rating-star {
+    font-size: 1.6rem;
+}
+.rating-star:hover {
+    font-size: 1.8rem;
+}
+.rating-star-full {
 
+}
 
 

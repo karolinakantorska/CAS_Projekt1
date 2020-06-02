@@ -19,9 +19,11 @@
         {{#each this}}
         <li>
             <h1 class="title">{{title}}</h1>
+            <p class="id">{{{id}}}</p>
+            <!-- TODO showing stairs not a number -->
+            <p class="importance">Importance:</p>
             <p class="importance">{{{importance}}}</p>
             <p class="description">{{description}}</p>
-            <!-- TODO entry of date -->
             <p class="start">{{start}}</p>
             <p class="finish">{{finish}}</p>
             <!-- to interprete bolean -->
@@ -30,8 +32,8 @@
             {{else}}
                 <p class="done">&#9744;</p>
             {{/if}}
-            <!-- TODO add an event listener -->
             <a class="edit">edit...</a>
+            
         </li>
         {{/each}}
     </script>
@@ -69,37 +71,15 @@
                     <input class="btn__sort" type="button" value="Sort"></input>
                 </form>
             </span>
-            <!-- TODO List-->
-            <!-- ADD TODO Form-->
-            <div class="form__list__container">
-
+            <!-- TODO add an event listener for an edit function -->
+            <div class="form__list__container" >
+                <!-- TODO List-->
+                <!-- ADD TODO Form-->
+                <!-- TODO add in css a description for a list -->
+                <!-- TODO world 'start' and 'to finish until' in Funny -->
+                <!-- TODO whole line in buisness -->
             </div>
-            <!--<ul class="list__container">-->
-                <!-- TODO make it visible in buisness style -->
-                <!-- TODO add description of the dates in css(started/finished) -->
-                <!--
-                <li class="table__content">
-                    <p class="done">Done:</p>
-                    <p class="finish">Finished until:</p>
-                    <p class="title">Title:</p>
-                    <p class="importance">Importance:</p>
-                    <p class="start">Start:</p>        
-                </li>
-                -->
-            <!--
-                <li>
-                    <h1 class="title">Feed the cat</h1>
-                    <p class="importance">&#9734;&#9734;&#9734;&#9734;&#9734;</p>
-                    <p class="description">Tekst describing the task.</p>
-                    <p class="start">30.09.2020</p>
-                    <p class="finish">27.08.2020</p>
-                    <p class="done">&#9745;</p>
-                    <a class="edit">edit...</a>
-                </li>
-            -->
-            <!--</ul>-->
     </div>
-
 </body>
 <footer>
 <p>&copy; Karolina Kantorska</p>

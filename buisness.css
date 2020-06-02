@@ -53,7 +53,7 @@ p, h1{
 }
 .sorting_options__contaier > form {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     align-items: center;
     border-bottom: solid 1px darkslategrey;
 }
@@ -65,6 +65,9 @@ p, h1{
     width: 8rem;
     width: 160px;
     margin-bottom: -1px;
+}
+.sorting_options__radio {
+    margin-top: 10px;
 }
 /*TODO List*/
 .list__container {
@@ -97,6 +100,9 @@ li {
         "done       finish    title     importance  start   edit "
         "descript   descript  descript  descript    descript  descript";
     align-items: center;
+}
+.id {
+    display: none;
 }
 .done,
 .finish,
@@ -142,14 +148,69 @@ h1.title {
     font-weight: 300;
 }
 /*Formular Add+ */
+.newTask {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    
+    margin-top: 20px;
+    max-width: 400px;
+}
+.btn_task_input_close {
+    width: 30px;
+    justify-self: right;
+    grid-column-start: 2;
+}
+.title_span,
+.description_span {
+    display: grid;
+    grid-column: 1 / span 2;
+    grid-template-columns: 1fr 1fr;
+}
+.title_span label,
+.description_span label {
+    grid-column-start: 1;
+}
+.inputTitle,
+.inputDescription {
+    grid-column-start: 2;
+}
+.date_span {
+    grid-column: 1 / span 2;
+    display: grid;
+    grid-template-columns: 1fr,1fr;
+}
+.date_label1{
+    grid-column-start: 1;
+    display:grid;
+}
+.date_label2{
+    grid-column-start: 2;
+    display:grid;
+}
+.inputStart {
+    justify-self: left;
+}
+.stair_rating {
+    grid-column: 1 / span 2;
+}
+.btn_task_input {
+    grid-column: 1 / span 2;
+}
 .rating-star {
     font-size: 1.6rem;
 }
 .rating-star:hover {
     font-size: 1.8rem;
 }
-.rating-star-full {
-
+.full {
+    font-size: 2rem;
+}
+.rating-star::before {
+    content: "\2606";
+}
+.full::before {
+    content: "\2605";
 }
 /*@ media querry*/
 
@@ -179,8 +240,10 @@ h1.title {
     .btn__sorting {
         width: 100px;
     }
+
     .sorting_options__radio p,
     .sorting_options__radio label {
+ 
         font-size: .9rem;
     }
     /*TODO List*/

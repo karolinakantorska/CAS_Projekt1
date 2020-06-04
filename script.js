@@ -1,12 +1,15 @@
 // style toggler
+/*
 const styleToggler = document.querySelector('.disp-style').addEventListener('click', () => {
     const cssVariant = document.querySelector('.link_css');
     (/funny/.test(cssVariant.href))
         ? cssVariant.href = 'buisness.css' 
         : cssVariant.href = 'funny.css';  
 });
+*/
 // creating temporary storage or filling creating temporary storage with data from Local storage
-const todoList = JSON.parse(localStorage.getItem('todoList')) || [];
+// In Model
+// const todoList = JSON.parse(localStorage.getItem('todoList')) || [];
 //const todoList = [];
 //window.localStorage.removeItem('todoList');
 // reading and compiling List Templates
@@ -37,9 +40,11 @@ const editTask = function () {
     const id =Object.values(liChildrenNodes).find((child) => child.className.includes('id')).innerText;
     // to set placeholder or default text
     const defalutValuesObject = todoList.find((task) => task.id === id);
+
     const index = todoList.findIndex((task) => task.id === id);
     // deleting Task from todoList
-    todoList.splice(index , 2);
+    // In Model
+    // todoList.splice(index , 1);
     localStorage.removeItem('todoList');
     localStorage.setItem('todoList', JSON.stringify(todoList));
     // displaying form for a new task
@@ -53,9 +58,12 @@ const editTask = function () {
 
 // entry form
 // rendering an input form
+/*
 function handleAddNewTask(){
     document.querySelector('.form__list__container').innerHTML = entryForm;
 }
+*/
+/*
 const entryForm =  `
     <form class='newTask'>
         <input class='btn_task_input_close' type="button" onclick= "renderList(todoList)" value="&#9747;">
@@ -88,10 +96,10 @@ const entryForm =  `
         </span>
         <input class='btn_task_input' type="button" value="Add Task" onclick= "addNewTask()">
     </form>
-`
+`*/
 // adding event to Add+ 
-const newTaskLink = document.querySelector('.link__add').addEventListener('click', handleAddNewTask);
-const newTaskBtn = document.querySelector('.btn__add').addEventListener('click', handleAddNewTask );
+//const newTaskLink = document.querySelector('.link__add').addEventListener('click', handleAddNewTask);
+//const newTaskBtn = document.querySelector('.btn__add').addEventListener('click', handleAddNewTask );
 // adding event to All
 const newTaskBtnClose = document.querySelector('#btn__sorting__all').addEventListener('click', () => renderList(todoList));
 // adding event to show Done
@@ -99,8 +107,9 @@ const doneArray =  todoList.filter((task)=> task.done);
 const showDoneBtn = document.querySelector('#btn__sorting__done').addEventListener('click', () => renderList(doneArray));
 // adding event to show Todo
 const stilTodoArray = todoList.filter((task) => !task.done);
+/*
 const showTodoBtn = document.querySelector('#btn__sorting__todo').addEventListener('click', () => renderList(stilTodoArray));
-
+*/
 // TODO avoid this repetition
 function sortTasksFinish() {
     return [...todoList].sort(function(t1,t2){
@@ -144,10 +153,12 @@ function handleSorting() {
 const sortBtn = document.querySelector('.btn__sort');
 sortBtn.addEventListener('click', handleSorting);
 
-function addNewTask() {
+//function addNewTask() {
     // TODO try to do it with submit
     //e.preventDefault();
-    const id = 'id' + (new Date()).getTime();
+    // In Model
+    //const id = 'id' + (new Date()).getTime();
+    /*
     const formNewTask = document.querySelector('.newTask')
     const title = formNewTask.querySelector('.inputTitle').value;
     const description = formNewTask.querySelector('.inputDescription').value;
@@ -155,6 +166,9 @@ function addNewTask() {
     const start = formNewTask.querySelector('.start').value;
     const finish = formNewTask.querySelector('.finish').value;
     const importance = formNewTask.querySelectorAll('.full').length;
+    */
+    // In Model
+    /*
     const newTask = {
         id,
         title,
@@ -164,10 +178,15 @@ function addNewTask() {
         description,
         importance,
     }
-    todoList.push(newTask);
-    localStorage.setItem('todoList', JSON.stringify(todoList));
-    formNewTask.reset();
-}
+    */
+    // In Model
+    //todoList.push(newTask);
+    // In Model
+    //localStorage.setItem('todoList', JSON.stringify(todoList));
+
+    //formNewTask.reset();
+//} 
+/*
 const handleStairRating = function (){
     document.querySelector('.stair_rating').addEventListener('click', stairRating);
 }
@@ -187,6 +206,7 @@ function addClassToStairs(node) {
             : child.classList.remove('full')
     })
 }
+*/
 
 // TODO sorting functions better
 // TODO showing todolist when the website opens

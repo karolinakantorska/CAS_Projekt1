@@ -69,6 +69,10 @@ p, h1{
 .sorting_options__radio {
     margin-top: 10px;
 }
+.btn__sort {
+    border-radius: 15px;
+    max-width: 80px;
+}
 /*TODO List*/
 .list__container {
     display: grid;

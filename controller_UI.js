@@ -12,9 +12,11 @@ import { BuisnessLogic} from './shared.js'
 import { NotesStorage } from './notes-storage.js'
 
 class Controller {
-    constructor() {
+    constructor(buisnessLogic) {
+        //const buisnessLogic = new BuisnessLogic();
         this.appContainer = document.querySelector('.form__list__container');
         //this.appContainer.innerHTML = entryForm;
+        this.buisnessLogic = buisnessLogic;
         // Add+ Btn
         this.newTaskLink = document.querySelector('.link__add');
         this.newTaskBtn = document.querySelector('.btn__add');
@@ -22,68 +24,108 @@ class Controller {
         this.styleToggler = document.querySelector('.disp-style');
         // All show tasks
         this.thisShowAllBtn = document.querySelector('#btn__sorting__all');
-        //TODO closing new task window
-        //this.newTaskBtnClose = document.querySelector('');
+        // Sort Btn
+        this.sortBtn = document.querySelector('.btn__sort');
+        // SortForm HTMLCollection
+        this.sortFormHTMLCollection = Array.from(document.querySelector('.sorting_options__radio').children) ;
+        this.radioInputs = [];
+        this.sortInput = this.sortFormHTMLCollection.filter((item) => item.localName === "label").forEach((item) => this.radioInputs.push(...item.children));     
+        // Show Done Btn
+        this.showDoneBtn = document.querySelector('#btn__sorting__done');
+        // Show Todo Btn
+        this.showTodoBtn = document.querySelector('#btn__sorting__todo');
     }
     initEventListenersInMenu() {
         this.newTaskLink.addEventListener('click', this.renderForm);
         this.newTaskBtn.addEventListener('click', this.renderForm);
         this.styleToggler.addEventListener('click', this.toggleStyle);
-        this.thisShowAllBtn.addEventListener('click', this.loadTodoList)
+        this.thisShowAllBtn.addEventListener('click', () => this.renderTodoList(this.todoList));
+        //this.sortBtn.addEventListener('click', () => this.buisnessLogic.sortingAList(this.todoList, this.radioInputs));
+        this.sortBtn.addEventListener('click', () => this.renderTodoList(this.listSortedByImportance()));
+        // TODO change a list that will be sorted out
+        this.showDoneBtn.addEventListener('click', () => this.renderTodoList(this.buisnessLogic.filterDone(this.todoList)));
+        this.showTodoBtn.addEventListener('click', () => this.renderTodoList(this.buisnessLogic.filterTodo(this.todoList)));
     }
-    loadTodoList(){
-        this.todoList = notesStorage.getTodoList();
-        console.log(this.todoList)
+    listSortedByImportance(){
+        return this.buisnessLogic.sortingAList(this.todoList, this.radioInputs)
+    }
+    renderTodoList(list){
+        // list must be a string
+        //reading the templates
+        this.templateSource = document.querySelector("#entry-template").innerHTML;
+        // compiling template string into template function 
+        this.template = Handlebars.compile(this.templateSource);
+        this.ulTodoList = document.createElement('ul');
+        this.ulTodoList.setAttribute('class', 'list__container');
+        this.ulTodoList.innerHTML = this.template(list);
+        this.ulTodoList.addEventListener('click', (e) => this.editTask(e));
+        //ASK NOT URGENT why: this.appContainer.removeChild(this.appContainer.firstChild) doesn't work
+        this.appContainer.innerHTML = '';
+        this.appContainer.appendChild(this.ulTodoList);
+        //document.querySelector('.list__container').addEventListener('click', handlerEditTask);
+    }
+    handleEditTask(e){
+        //ASK NOT URGENT why it doesn,t work
+        //e.stopPropagation();
+        event.target.classList.contains('edit')
+            ? this.editTask()
+            : null;
+    }
+    editTask(){
+        this.liChildrenNodes = event.target.parentElement.children;
+        this.id = Object.values(this.liChildrenNodes).find((child) => child.className.includes('id')).innerText;
+        this.renderForm();
+        const defalutValuesObject = notesStorage.getNodeByID(this.id)[0];
+        document.querySelector('.inputTitle').setAttribute('value', `${defalutValuesObject.title}`);
+        document.querySelector('.inputDescription').setAttribute('valuet', `${defalutValuesObject.description}`);
+        document.querySelector('.start').setAttribute('value', `${defalutValuesObject.start}`);
+        document.querySelector('.finish').setAttribute('value', `${defalutValuesObject.finish}`);
+        notesStorage.deleteNodeByID(this.id);
+        this.controllerAction();
     }
     getInput() {
         // input
         this.formNewTask = document.querySelector('.newTask');
         this.title = document.querySelector('.inputTitle').value;
         this.description = document.querySelector('.inputDescription').value;
-        this.done = document.querySelector('.inputDone') ? true : false;
+        this.done = document.querySelector('.inputDone').checked
+        console.log(document.querySelector('.inputDone').checked)
         this.start = document.querySelector('.start').value;
         this.finish = document.querySelector('.finish').value;
         this.importance = document.querySelectorAll('.full').length;
         // generate id
         this.id = 'id' + (new Date()).getTime();
-        // TODO delete this later
-        /*
-        console.log({
-            id: this.id,
-            inputTitle: this.title,
-            start: this.start,
-            finish: this.finish,
-            done: this.done,
-            description: this.description,
-            importance: this.importance,
-        })
-        */
         this.formNewTask.reset();
         const newTask ={
             id: this.id,
-            inputTitle: this.title,
+            title: this.title,
             start: this.start,
             finish: this.finish,
             done: this.done,
             description: this.description,
             importance: this.importance,
         }
-        console.log(notesStorage);
         notesStorage.addNewTask(newTask);
     }
     renderForm() {
-        controller.appContainer.innerHTML = entryForm;
+        //reading the templates
+        this.templateSourceInput = document.querySelector("#input-template").innerHTML;
+        // compiling template string into template function
+        this.templateInput = Handlebars.compile(this.templateSourceInput);
+        controller.appContainer.innerHTML = this.templateInput(this.todoList);
         this.submitBtn = document.querySelector('.btn_task_input');
         this.starBtn = document.querySelector('.stair_rating');
+        this.inputCloseBtn = document.querySelector('.btn_task_input_close');
+        //ASK Why it is not working here and by All btn it works
+        this.inputCloseBtn.addEventListener('click', () => this.renderTodoList(this.todoList));
         //ASK
         //why not: this.submitBtn.addEventListener('click', this.getInput);
+        //TODO it should be 'submit' not 'click'
         this.submitBtn.addEventListener('click', controller.getInput);
         //ASK
-        //why not: this.submitBtn.addEventListener('click', this.getInput);
+        //why not: this.starBtn.addEventListener('click', this.getInput);
         this.starBtn.addEventListener('click', controller.handleStairRating);
-    }
-    test(){
-        console.log('test')
+        
     }
     toggleStyle(){
         this.cssVariant = document.querySelector('.link_css');
@@ -108,49 +150,14 @@ class Controller {
     }
     controllerAction(){
         this.initEventListenersInMenu();
+        this.todoList = notesStorage.getTodoList();
     }
 }
-//TODO take it out from here
-const entryForm = `
-    <form class='newTask'>
-        <input class='btn_task_input_close' type="button" onclick= "renderList(todoList)" value="&#9747;">
-        <span class="title_span">
-            <label for="title">Task title: </label>
-            <input type="text" name="title" class="inputTitle" required>
-
-        </span>
-        <span class="description_span">
-            <label for="description">Description: </label>
-            <textarea type="text" name="description" class="inputDescription" ></textarea>
-        </span>
-        <span>
-            <input type="radio" class="inputTodo" name="inputTodo" checked >
-            <label>Todo</label>
-            <input type="radio" class="inputDone" name="inputTodo">
-            <label>Done</label>
-        </span>
-        <span class="date_span">
-            <label class="date_label1" for="start" >Start date:<input type="date" class="start" name="inputStart"></label>
-            <label class="date_label2" for="finish">Finish date:<input type="date" class="finish" name="inputFinish" ></label>
-       </span>
-        <span class="stair_rating">
-            <label>Importance:</label>
-            <span class="rating-star" role="button"></span>
-            <span class="rating-star" role="button"></span>
-            <span class="rating-star" role="button"></span>
-            <span class="rating-star" role="button"></span>
-            <span class="rating-star" role="button"></span>
-        </span>
-        <input class='btn_task_input' type="button" value="Add Task" >
-    </form>
-`
-
-const controller = new Controller();
+const buisnessLogic = new BuisnessLogic();
+//ASK why I have to put this inside
+const controller = new Controller(buisnessLogic);
 //ASK if it is a wright place to initialise the notesStorage?
 const notesStorage = new NotesStorage();
-notesStorage.loadData();
+//const todoList = notesStorage.getTodoList();
+//console.log(todoList)
 controller.controllerAction();
-
-
-
-

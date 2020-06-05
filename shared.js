@@ -2,28 +2,47 @@
 //View ----onclick----> Controller
 //View <======== Controller
 //Displays the state/data of the mode
-import { NotesStorage} from './notes-storage.js'
 
 export class BuisnessLogic {
-
-}
-/*
-export class Task {
-    constructor(id, title, start, finish, done, description, importance) {
-       // const id = 'id' + (new Date()).getTime();
-        this.id= id;
-        this.title = title;
-        this.start = start;
-        this.finish = finish;
-        this.done = done;
-        this.description = description;
-        this.importance = importance;
+    constructor() {
     }
-    test(){
-        console.log('Task')
+    test() {
+        console.log('test')
     }
-    
+    filterDone(list){
+        return list.filter((task) => task.done);
+    }
+    filterTodo(list) {
+        return list.filter((task) => !task.done);
+    }
+    sortingAList(list, sortInput){
+        let value = ''
+        for (const node of sortInput) {
+            (node.checked)
+                ? value = node.value
+               : null;
+        }
+        switch (value) {
+            case 'finish':
+                console.log(`${value}`)
+                return this.sortTasksBy(list, value);
+                break;
+            case 'start':
+                console.log(`${value}`)
+                return this.sortTasksBy(list, value);
+                break;
+            case 'importance':
+                console.log('importance')
+                return this.sortTasksBy(list, value);
+                break;
+        }
+    }
+    sortTasksBy(list, by){
+        return [...list].sort(function (t1, t2) {
+            console.log(new Date(t2[by]))
+            return new Date(t2[by]) - new Date(t1[by]);
+        });
+    }
 }
-*/
 
 

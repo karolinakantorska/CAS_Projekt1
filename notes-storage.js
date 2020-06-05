@@ -5,34 +5,26 @@
 
 export class NotesStorage {
     constructor() {
-        
-    }
-    loadData() {
-        this.todoList = JSON.parse(localStorage.getItem('todoList')) || [];
+        const todoList = JSON.parse(localStorage.getItem('todoList')) || []; 
+        // ASK why 'this.todoList = todoList' and not to use 'this.todoList' everywere
+        this.todoList = todoList;
         localStorage.setItem('todoList', JSON.stringify(this.todoList));
-    }
-    test() {
-        console.log('this.getTodoList')
     }
     getTodoList(){
         return this.todoList;
     }
-    updateTodoList(todoList) {
-        // TODOupdating local todoList / model state
-        localStorage.setItem('todoList', JSON.stringify(todoList));
-        return todoList;
-    }
     addNewTask(newTask) {
         this.todoList.push(newTask);
+        localStorage.setItem('todoList', JSON.stringify(this.todoList));
     }
-    /*
-    deleteTodo(index) {
-        this.todoList = this.todoList.splice(index, 1);
-        // or this.todos = this.todos.filter(todo => todo.id !== id)
-        this._updateTodoList(this.todoList)
+    getNodeByID(id) {
+        return this.todoList.filter((item) => (item.id === id) ? item : null);
     }
-    editTodo(id) {
+    deleteNodeByID(id) {
+        // is not reloading
+        this.todoList = this.todoList.filter((item) => !(item.id === id) ? item : null);
+        localStorage.setItem('todoList', JSON.stringify(this.todoList));
+
     }
-    */
 
 }

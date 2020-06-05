@@ -68,6 +68,11 @@ body {
 .sorting_options__radio label {
     flex-basis: 20%;
 }
+.btn__sort {
+    flex-basis: 20%;
+    border-radius: 15px;
+    max-width: 80px;
+}
 /*TODO List*/
 .list__container{
     flex-basis: 100%;

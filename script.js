@@ -14,6 +14,7 @@ const styleToggler = document.querySelector('.disp-style').addEventListener('cli
 //window.localStorage.removeItem('todoList');
 // reading and compiling List Templates
 // rendering any List
+/*
 const renderList = (list) =>{
     // List Templates
     //reading the templates
@@ -28,6 +29,7 @@ const renderList = (list) =>{
     document.querySelector('.form__list__container').appendChild(ulTodoList);
     document.querySelector('.list__container').addEventListener('click', handlerEditTask);
 }
+*/
 function handlerEditTask () {
     event.target.classList.contains('edit')
         ? editTask()
@@ -41,7 +43,7 @@ const editTask = function () {
     // to set placeholder or default text
     const defalutValuesObject = todoList.find((task) => task.id === id);
 
-    const index = todoList.findIndex((task) => task.id === id);
+    //const index = todoList.findIndex((task) => task.id === id);
     // deleting Task from todoList
     // In Model
     // todoList.splice(index , 1);
@@ -103,14 +105,17 @@ const entryForm =  `
 // adding event to All
 const newTaskBtnClose = document.querySelector('#btn__sorting__all').addEventListener('click', () => renderList(todoList));
 // adding event to show Done
+/*
 const doneArray =  todoList.filter((task)=> task.done);
 const showDoneBtn = document.querySelector('#btn__sorting__done').addEventListener('click', () => renderList(doneArray));
+*/
 // adding event to show Todo
-const stilTodoArray = todoList.filter((task) => !task.done);
+//const stilTodoArray = todoList.filter((task) => !task.done);
 /*
 const showTodoBtn = document.querySelector('#btn__sorting__todo').addEventListener('click', () => renderList(stilTodoArray));
 */
 // TODO avoid this repetition
+/*
 function sortTasksFinish() {
     return [...todoList].sort(function(t1,t2){
         return t1.finish - t2.finish;
@@ -126,7 +131,9 @@ function sortTasksImportance() {
         return t1.importance - t2.importance;
     });
 }
+*/
 // TODO shorter functions
+/*
 function handleSorting() {
     const sortForm = document.querySelector('.sorting_options__radio');
     const sortFormNodes = sortForm.querySelectorAll('input');
@@ -149,9 +156,12 @@ function handleSorting() {
             break;
     } 
 }
+*/
 // adding event to sort button
+/*
 const sortBtn = document.querySelector('.btn__sort');
 sortBtn.addEventListener('click', handleSorting);
+*/
 
 //function addNewTask() {
     // TODO try to do it with submit

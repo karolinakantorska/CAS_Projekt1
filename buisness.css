@@ -121,6 +121,12 @@ li {
 .start {
     background-color: whitesmoke;
     height: 100%;
+}
+
+.finish,
+.start {
+    background-color: whitesmoke;
+    height: 100%;
     display: grid;
     align-items: center;
 }
@@ -138,6 +144,15 @@ li {
 .start {
     grid-area: start;
 }
+.start::before {
+    font-size: 0.8rem;
+    content: 'Start: '
+}
+.finish::before {
+    font-size: 0.8rem;
+    content: 'Dedline: '
+}
+
 .importance {
     grid-area: importance;
     font-size: 1.2rem;
@@ -151,6 +166,8 @@ li {
     color: darkblue;
     text-decoration: underline;
     font-size: 0.9rem;
+    justify-self: right;
+    background-color: white;
 }
 h1.title {
     font-size: 1.2rem;
@@ -252,14 +269,11 @@ h1.title {
     .btn__sorting {
         width: 100px;
     }
-
     .sorting_options__radio p,
     .sorting_options__radio label {
- 
         font-size: .9rem;
     }
     /*TODO List*/
-
     .list__container{
         justify-items: center;
         margin-top: 0;
@@ -270,7 +284,7 @@ h1.title {
         justify-items: center;
         margin-top: 25px;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: repeat(4,2rem) 1fr;
+
         grid-template-areas: 
             "title title"
             "importance importance"
@@ -279,15 +293,20 @@ h1.title {
             "descript descript"
             "edit edit";
     } 
-    .title,
-    .importance {
+    .title{
         width: 100vw;
         text-align: center;
     }  
+    .importance{
+        background-color: white;
+    } 
+
     .done {
         justify-self: right;
-        padding-right: 10px;
+        padding-right: 40px;
         background-color: white;
+        display: grid;
+        align-items: center;
     }
     .edit
      {
@@ -296,8 +315,11 @@ h1.title {
     .finish,
     .start {
         justify-self: left;
-        padding-left: 10px;
+        padding: 5px 20px 0 0;
+        display: inline;
         background-color: white;
     }
+
+
 }
 

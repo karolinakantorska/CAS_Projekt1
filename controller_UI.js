@@ -1,145 +1,108 @@
-//Controller
-//Controller =======> View/Shared
-//Imports Buisness Logic
-//Controller =======> Model
-//?? Imports Model
-//Controller <----onclick---- View/Shared
-//Controller <----ondatachange---- Model
-//Takes the user's input
-//Mediates between the View and the business logic
-//The constructor method is called each time the class object is initialized.
 
 import { BuisnessLogic} from './shared-bl.js'
 import { NotesStorage } from './notes-storage.js'
 
-// CHANGE THIS TO HAVE IT WITHOUT A CLASS
-class Controller {
-    constructor(buisnessLogic) {
-        this.appContainer = document.querySelector('.form__list__container');
-        //this.appContainer.innerHTML = entryForm;
-        this.buisnessLogic = buisnessLogic;
-        // Add+ Btn
-        this.newTaskLink = document.querySelector('.link__add');
-        this.newTaskBtn = document.querySelector('.btn__add');
-        // styleToggler
-        this.styleToggler = document.querySelector('.disp-style');
-        // All show tasks
-        this.thisShowAllBtn = document.querySelector('#btn__sorting__all');
-        // Sort Btn
-        this.sortBtn = document.querySelector('.btn__sort');
-        // SortForm HTMLCollection
-        this.sortFormHTMLCollection = Array.from(document.querySelector('.sorting_options__radio').children) ;
-        this.radioInputs = [];
-        this.sortInput = this.sortFormHTMLCollection.filter((item) => item.localName === "label").forEach((item) => this.radioInputs.push(...item.children));     
-        // Show Done Btn
-        this.showDoneBtn = document.querySelector('#btn__sorting__done');
-        // Show Todo Btn
-        this.showTodoBtn = document.querySelector('#btn__sorting__todo');
-    }
-    initEventListenersInMenu() {
-        this.newTaskLink.addEventListener('click', this.renderForm);
-        this.newTaskBtn.addEventListener('click', this.renderForm);
-        this.styleToggler.addEventListener('click', this.toggleStyle);
-        this.thisShowAllBtn.addEventListener('click', () => this.renderTodoList(this.todoList));
-        //this.sortBtn.addEventListener('click', () => this.buisnessLogic.sortingAList(this.todoList, this.radioInputs));
-        this.sortBtn.addEventListener('click', () => this.renderTodoList(this.listSortedByImportance()));
+const notesStorage = new NotesStorage();
+const buisnessLogic = new BuisnessLogic(notesStorage);
+const todoList = notesStorage.getTodoList();
+
+    function initEventListenersInMenu() {
+        document.querySelector('.link__add').addEventListener('click', renderForm);
+        document.querySelector('.btn__add').addEventListener('click', renderForm);
+        document.querySelector('.disp-style').addEventListener('click', toggleStyle);
+        document.querySelector('#btn__sorting__all').addEventListener('click', () => renderTodoList(todoList));
+        //document.querySelector('.btn__sort').addEventListener('click', () => buisnessLogic.sortingAList(todoList, radioInputs));
+        document.querySelector('.btn__sort').addEventListener('click', () => renderTodoList(listSorting()));
         // TODO change a list that will be sorted out
-        this.showDoneBtn.addEventListener('click', () => this.renderTodoList(this.buisnessLogic.filterDone(this.todoList)));
-        this.showTodoBtn.addEventListener('click', () => this.renderTodoList(this.buisnessLogic.filterTodo(this.todoList)));
+        document.querySelector('#btn__sorting__done').addEventListener('click', () => renderTodoList(buisnessLogic.filterDone(todoList)));
+        document.querySelector('#btn__sorting__todo').addEventListener('click', () => renderTodoList(buisnessLogic.filterTodo(todoList)));
     }
-    listSortedByImportance(){
-        return this.buisnessLogic.sortingAList(this.todoList, this.radioInputs)
+
+    function listSorting(){
+        const sortFormHTMLCollection = Array.from(document.querySelector('.sorting_options__radio').children);
+        const radioInputs = [];
+        sortFormHTMLCollection.filter((item) => item.localName === "label").forEach((item) => radioInputs.push(...item.children));
+        return buisnessLogic.sortingAList(todoList, radioInputs)
     }
-    renderTodoList(list){
+    function renderTodoList(list){
         //reading the templates
-        this.templateSource = document.querySelector("#entry-template").innerHTML;
+        const templateSource = document.querySelector("#entry-template").innerHTML;
         // compiling template string into template function 
-        this.template = Handlebars.compile(this.templateSource);
-        this.ulTodoList = document.createElement('ul');
-        this.ulTodoList.setAttribute('class', 'list__container');
-        this.ulTodoList.innerHTML = this.template(list);
-        this.ulTodoList.addEventListener('click', (e) => this.editTask(e));
-        //ASK NOT URGENT why: this.appContainer.removeChild(this.appContainer.firstChild) doesn't work
-        this.appContainer.innerHTML = '';
-        this.appContainer.appendChild(this.ulTodoList);
-        //document.querySelector('.list__container').addEventListener('click', handlerEditTask);
+        const template = Handlebars.compile(templateSource);
+        const ulTodoList = document.createElement('ul');
+        ulTodoList.setAttribute('class', 'list__container');
+        ulTodoList.innerHTML = template(list);
+        ulTodoList.addEventListener('click', (e) => editTask(e));
+        //ASK NOT URGENT why: appContainer.removeChild(appContainer.firstChild) doesn't work
+        const appContainer = document.querySelector('.form__list__container');
+        appContainer.innerHTML = '';
+        appContainer.appendChild(ulTodoList);
     }
-    handleEditTask(e){
-        //ASK NOT URGENT why it doesn,t work
-        //e.stopPropagation();
-        event.target.classList.contains('edit')
-            ? this.editTask()
-            : null;
-    }
-    editTask(){
-        this.liChildrenNodes = event.target.parentElement.children;
-        this.id = Object.values(this.liChildrenNodes).find((child) => child.className.includes('id')).innerText;
-        this.renderForm();
-        const defalutValuesObject = notesStorage.getNodeByID(this.id)[0];
+    function editTask(){
+        const liChildrenNodes = event.target.parentElement.children;
+        const id = Object.values(liChildrenNodes).find((child) => child.className.includes('id')).innerText;
+        renderForm();
+        const defalutValuesObject = notesStorage.getNodeByID(id)[0];
         document.querySelector('.inputTitle').setAttribute('value', `${defalutValuesObject.title}`);
         document.querySelector('.inputDescription').setAttribute('valuet', `${defalutValuesObject.description}`);
         document.querySelector('.start').setAttribute('value', `${defalutValuesObject.start}`);
         document.querySelector('.finish').setAttribute('value', `${defalutValuesObject.finish}`);
-        notesStorage.deleteNodeByID(this.id);
-        this.controllerAction();
+        notesStorage.deleteNodeByID(id);
+        controllerAction();
     }
-    getInput() {
+    function getInput() {
         // input
-        this.formNewTask = document.querySelector('.newTask');
-        this.title = document.querySelector('.inputTitle').value;
-        this.description = document.querySelector('.inputDescription').value;
-        this.done = document.querySelector('.inputDone').checked
+        const formNewTask = document.querySelector('.newTask');
+        const title = document.querySelector('.inputTitle').value;
+        const description = document.querySelector('.inputDescription').value;
+        const done = document.querySelector('.inputDone').checked
         console.log(document.querySelector('.inputDone').checked)
-        this.start = document.querySelector('.start').value;
-        this.finish = document.querySelector('.finish').value;
-        this.importance = document.querySelectorAll('.full').length;
+        const start = document.querySelector('.start').value;
+        const finish = document.querySelector('.finish').value;
+        const importance = document.querySelectorAll('.full').length;
         // generate id
-        this.id = 'id' + (new Date()).getTime();
-        this.formNewTask.reset();
+        const id = 'id' + (new Date()).getTime();
+        formNewTask.reset();
         const newTask ={
-            id: this.id,
-            title: this.title,
-            start: this.start,
-            finish: this.finish,
-            done: this.done,
-            description: this.description,
-            importance: this.importance,
+            id,
+            title,
+            start,
+            finish,
+            done,
+            description,
+            importance,
         }
         notesStorage.addNewTask(newTask);
     }
-    renderForm() {
+    function renderForm() {
         //reading the templates
-        this.templateSourceInput = document.querySelector("#input-template").innerHTML;
+        const templateSourceInput = document.querySelector("#input-template").innerHTML;
         // compiling template string into template function
-        this.templateInput = Handlebars.compile(this.templateSourceInput);
-        controller.appContainer.innerHTML = this.templateInput(this.todoList);
-        this.submitBtn = document.querySelector('.btn_task_input');
-        this.starBtn = document.querySelector('.stair_rating');
-        this.inputCloseBtn = document.querySelector('.btn_task_input_close');
-        //ASK Why it is not working here and by All btn it works
-        this.inputCloseBtn.addEventListener('click', () => this.renderTodoList(this.todoList));
-        //ASK
-        //why not: this.submitBtn.addEventListener('click', this.getInput);
+        const templateInput = Handlebars.compile(templateSourceInput);
+        const appContainer = document.querySelector('.form__list__container');
+        appContainer.innerHTML = templateInput(todoList);
+        const submitBtn = document.querySelector('.btn_task_input');
+        const starBtn = document.querySelector('.stair_rating');
+        const inputCloseBtn = document.querySelector('.btn_task_input_close');
+        inputCloseBtn.addEventListener('click', () => renderTodoList(todoList));
         //TODO it should be 'submit' not 'click'
-        this.submitBtn.addEventListener('click', controller.getInput);
-        //ASK
-        //why not: this.starBtn.addEventListener('click', this.getInput);
-        this.starBtn.addEventListener('click', controller.handleStairRating);
+        submitBtn.addEventListener('click', getInput);
+        starBtn.addEventListener('click', handleStairRating);
         
     }
-    toggleStyle(){
-        this.cssVariant = document.querySelector('.link_css');
-        if (/funny/.test(this.cssVariant.href)) {
-            this.cssVariant.href = 'buisness.css';
+    function toggleStyle(){
+        const cssVariant = document.querySelector('.link_css');
+        if (/funny/.test(cssVariant.href)) {
+            cssVariant.href = 'buisness.css';
             document.querySelector('.disp-style').innerHTML = 'Display: funny &#9662'
             }
         else {
-            this.cssVariant.href = 'funny.css';
+            cssVariant.href = 'funny.css';
             document.querySelector('.disp-style').innerHTML = 'Display: buisness &#9662'
             }
     }
 
-    handleStairRating(){
+    function handleStairRating(){
         function addClassToStars(node) {
             const parentsChildren = node.parentElement.children
             const parentsChildrenArray = Object.values(parentsChildren).filter((child) => child.classList.contains('rating-star'))
@@ -154,13 +117,11 @@ class Controller {
             ? addClassToStars(event.target)
             : null;
     }
-    controllerAction(){
-        this.initEventListenersInMenu();
-        this.todoList = notesStorage.getTodoList();
-    }
-}
-const notesStorage = new NotesStorage();
-const buisnessLogic = new BuisnessLogic(notesStorage);
-const controller = new Controller(buisnessLogic);
 
-controller.controllerAction();
+initEventListenersInMenu();
+
+
+
+
+
+

@@ -7,13 +7,14 @@
 //Controller <----ondatachange---- Model
 //Takes the user's input
 //Mediates between the View and the business logic
+//The constructor method is called each time the class object is initialized.
 
-import { BuisnessLogic} from './shared.js'
+import { BuisnessLogic} from './shared-bl.js'
 import { NotesStorage } from './notes-storage.js'
 
+// CHANGE THIS TO HAVE IT WITHOUT A CLASS
 class Controller {
     constructor(buisnessLogic) {
-        //const buisnessLogic = new BuisnessLogic();
         this.appContainer = document.querySelector('.form__list__container');
         //this.appContainer.innerHTML = entryForm;
         this.buisnessLogic = buisnessLogic;
@@ -50,7 +51,6 @@ class Controller {
         return this.buisnessLogic.sortingAList(this.todoList, this.radioInputs)
     }
     renderTodoList(list){
-        // list must be a string
         //reading the templates
         this.templateSource = document.querySelector("#entry-template").innerHTML;
         // compiling template string into template function 
@@ -153,11 +153,8 @@ class Controller {
         this.todoList = notesStorage.getTodoList();
     }
 }
-const buisnessLogic = new BuisnessLogic();
-//ASK why I have to put this inside
-const controller = new Controller(buisnessLogic);
-//ASK if it is a wright place to initialise the notesStorage?
 const notesStorage = new NotesStorage();
-//const todoList = notesStorage.getTodoList();
-//console.log(todoList)
+const buisnessLogic = new BuisnessLogic(notesStorage);
+const controller = new Controller(buisnessLogic);
+
 controller.controllerAction();

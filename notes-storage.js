@@ -2,11 +2,9 @@
 //Model ----ondatachange----> Controller
 //Model <======== Controller
 //Data and business logic for the application
-
 export class NotesStorage {
     constructor() {
         const todoList = JSON.parse(localStorage.getItem('todoList')) || []; 
-        // ASK why 'this.todoList = todoList' and not to use 'this.todoList' everywere
         this.todoList = todoList;
         localStorage.setItem('todoList', JSON.stringify(this.todoList));
     }
@@ -21,10 +19,7 @@ export class NotesStorage {
         return this.todoList.filter((item) => (item.id === id) ? item : null);
     }
     deleteNodeByID(id) {
-        // is not reloading
         this.todoList = this.todoList.filter((item) => !(item.id === id) ? item : null);
         localStorage.setItem('todoList', JSON.stringify(this.todoList));
-
     }
-
 }

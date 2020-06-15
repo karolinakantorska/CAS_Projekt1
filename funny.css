@@ -160,9 +160,12 @@ footer {
     display: flex;
     flex-direction: column;
 }
+.span_task_input_close {
+    font-size: var(--small-text);
+    align-self: flex-end;
+}
 .btn_task_input_close {
     width: 30px;
-    align-self: flex-end;
 }
 .title_span,
 .description_span {

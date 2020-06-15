@@ -129,10 +129,16 @@ class Controller {
     }
     toggleStyle(){
         this.cssVariant = document.querySelector('.link_css');
-        (/funny/.test(this.cssVariant.href))
-            ? this.cssVariant.href = 'buisness.css'
-            : this.cssVariant.href = 'funny.css';
+        if (/funny/.test(this.cssVariant.href)) {
+            this.cssVariant.href = 'buisness.css';
+            document.querySelector('.disp-style').innerHTML = 'Display: funny &#9662'
+            }
+        else {
+            this.cssVariant.href = 'funny.css';
+            document.querySelector('.disp-style').innerHTML = 'Display: buisness &#9662'
+            }
     }
+
     handleStairRating(){
         function addClassToStars(node) {
             const parentsChildren = node.parentElement.children
